@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import UserContext from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 function UserContextProvider({ children }) {
   const [userStatus, setUserStatus] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     var d = window.localStorage.getItem("token") ? true : false;
     if (d) {
@@ -13,9 +15,12 @@ function UserContextProvider({ children }) {
   }, []);
   function login() {
     setUserStatus(true);
+    navigate("/");
   }
   function logout() {
     setUserStatus(false);
+    window.localStorage.removeItem("token");
+    navigate("/login");
   }
   return (
     <UserContext.Provider value={{ userStatus, login, logout }}>

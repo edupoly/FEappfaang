@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 function Products() {
   var [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3500/products")
+    fetch("http://localhost:3500/products", {
+      headers: {
+        token: window.localStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setProducts([...data]);

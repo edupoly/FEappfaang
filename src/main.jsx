@@ -7,11 +7,17 @@ import Employees from "./Employees.jsx";
 import Products from "./Products.jsx";
 import Students from "./Students.jsx";
 import Login from "./Login.jsx";
+import Home from "./Home.jsx";
+import EditEmployee from "./EditEmployee.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
     children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
       {
         path: "/products",
         element: <Products></Products>,
@@ -23,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/employees",
         element: <Employees></Employees>,
+      },
+      {
+        path: "/editEmployee/:id",
+        element: <EditEmployee></EditEmployee>,
       },
       {
         path: "/login",

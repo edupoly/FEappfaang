@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import UserContext from "./UserContext";
+import { Link } from "react-router-dom";
 
 function Employees() {
   const [employees, setEmployees] = useState();
+  var { logout } = useContext(UserContext);
+
   useEffect(() => {
-    fetch("http://localhost:3500/employees")
+    fetch("http://localhost:3500/employees", {
+      headers: {
+        token: window.localStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        setEmployees([...data]);
+        if (data.msg === "Login again") {
+          logout();
+        } else {
+          setEmployees([...data]);
+        }
       });
   }, []);
   return (
@@ -17,6 +29,12 @@ function Employees() {
           return (
             <li key={emp.id}>
               <b>{emp.firstname}</b>
+              <Link
+                to={`/editEmployee/${emp.id}`}
+                className="btn btn-sm btn-info m-2"
+              >
+                Edit
+              </Link>
             </li>
           );
         })}
