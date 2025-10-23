@@ -40,3 +40,7 @@ function EditEmployee() {
 }
 
 export default EditEmployee;
+
+// 1. Data Layer
+// 2. Service Layer
+// 3. Presentational Layer
